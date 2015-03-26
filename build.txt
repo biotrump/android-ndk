@@ -1,0 +1,14 @@
+1. download ndk r9
+cd android-ndk-r9
+2. download ndk source
+./build/tools/download-toolchain-sources.sh src
+3. install required packages
+sudo apt-get install g++-multilib
+sudo apt-get install m4
+sudo apt-get install texinfo
+sudo apt-get install bison
+sudo apt-get install flex
+sudo apt-get install libncurses5-dev
+sudo apt-get install lib32ncurses5-dev
+4. build tool chain
+./build/tools/build-gcc.sh --verbose $(pwd)/src $(pwd) arm-linux-androideabi-4.6

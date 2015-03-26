@@ -1,0 +1,21 @@
+--- libgomp.h
++++ libgomp.h
+@@ -365,9 +365,17 @@ static inline struct gomp_thread *gomp_thread (void)
+ }
+ #else
+ extern pthread_key_t gomp_tls_key;
++extern struct gomp_thread *create_non_tls_thread_data (void);
+ static inline struct gomp_thread *gomp_thread (void)
+ {
+-  return pthread_getspecific (gomp_tls_key);
++  struct gomp_thread *thr = pthread_getspecific (gomp_tls_key);
++  
++  if(thr == NULL)
++  {
++    thr = create_non_tls_thread_data ();
++  }
++  
++  return thr;
+ }
+ #endif
+ 
